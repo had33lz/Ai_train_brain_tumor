@@ -30,6 +30,7 @@ Brain_Tumor_Data_Set/
 ├── no_tumor/  
 └── tumor/  
 
+dataset resource : https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset
 
 ---
 
