@@ -23,12 +23,12 @@ Brain tumor detection from MRI scans is a critical task in medical image analysi
 The dataset is organized as:
 Brain_Tumor_Data_Set/
 
-├── train/
-│ ├── no_tumor/
-│ └── tumor/
-└── test/
-├── no_tumor/
-└── tumor/
+├── train/   
+│ ├── no_tumor  
+│ └── tumor/   
+└── test/   
+├── no_tumor/  
+└── tumor/  
 
 
 ---
