@@ -40,6 +40,7 @@ Set	No Tumor	Tumor	Total
 Training	1587	2013	3600
 Testing	500	500	1000
 The dataset is organized as and manualy splitted into test/train :
+
 Brain_Tumor_Data_Set/ 
 ├── train/   
 │ ├── no_tumor  
@@ -125,6 +126,7 @@ python train.py
 
 
 The dataset is organized as and manualy splitted into test/train :
+
 Brain_Tumor_Data_Set/ 
 ├── train/   
 │ ├── no_tumor  
