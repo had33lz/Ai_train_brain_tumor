@@ -111,18 +111,18 @@ This setup avoids cloud I/O bottlenecks and enables faster, stable training.
 git clone https://github.com/your-username/brain_tumor_train.git
 cd brain_tumor_train
 
-2️⃣ Set up the environment
-python3 -m venv tfenv
-source tfenv/bin/activate
-pip install -r requirements.txt
+2️⃣ Set up the environment   
+python3 -m venv tfenv    
+source tfenv/bin/activate    
+pip install -r requirements.txt    
 
-3️⃣ Train and evaluate
-python train.py
+3️⃣ Train and evaluate    
+python train.py    
 
-1. Activate the virtual environment:
-bash
-source tfenv/bin/activate
-python train.py
+1. Activate the virtual environment:   
+bash   
+source tfenv/bin/activate   
+python train.py   
 
 
 The dataset is organized as and manualy splitted into test/train :
