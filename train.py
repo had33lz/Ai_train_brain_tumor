@@ -6,11 +6,14 @@ from tensorflow.keras import layers
 from sklearn.metrics import confusion_matrix, classification_report
 import pandas as pd
 
+
+
+# GPU SETTINGS
 # =========================
-# 0) SPEED / GPU SETTINGS
-# =========================
+
+
 from tensorflow.keras import mixed_precision
-mixed_precision.set_global_policy("mixed_float16")  # RTX 3060 loves this
+mixed_precision.set_global_policy("mixed_float16")  
 
 gpus = tf.config.list_physical_devices("GPU")
 print("GPUs:", gpus)
@@ -21,19 +24,18 @@ if gpus:
     except Exception as e:
         print("Could not set memory growth:", e)
 
+
+# 1) CONFIG 
 # =========================
-# 1) CONFIG (EDIT PATHS HERE)
-# =========================
-IMG_SIZE = (160, 160)   # faster than 256, still good for MRI
+IMG_SIZE = (224, 224)  
 BATCH_SIZE = 64
 SEED = 42
 AUTOTUNE = tf.data.AUTOTUNE
 
-# ✅ Put your dataset path here (Windows path in WSL format)
-# Example if your dataset is in Windows Downloads:
-# DATASET_ROOT = "/mnt/c/Users/hadee/Downloads/Brain_Tumor_Data_Set"
 
-DATASET_ROOT = "/mnt/c/Users/hadee/Downloads/Brain_Tumor_Data_Set"  # <-- EDIT if needed
+
+DATASET_ROOT = "/mnt/c/Users/hadee/Downloads/Brain Tumor Data Set/Brain_Tumor_Data_Set"
+
 TRAIN_DIR = os.path.join(DATASET_ROOT, "train")
 TEST_DIR  = os.path.join(DATASET_ROOT, "test")
 
@@ -127,74 +129,8 @@ data_aug = keras.Sequential([
     layers.RandomZoom(0.05),
 ], name="augmentation")
 
-# =========================
-# 5) MODEL A — CUSTOM CNN (SEQUENTIAL)
-# =========================
-custom_model = keras.Sequential([
-    layers.Input(shape=IMG_SIZE + (1,)),
-    data_aug,
-    layers.Rescaling(1./255),
 
-    layers.Conv2D(32, (3,3), padding="same", activation="relu"),
-    layers.BatchNormalization(),
-    layers.MaxPooling2D(),
-    layers.Dropout(0.20),
-
-    layers.Conv2D(64, (3,3), padding="same", activation="relu"),
-    layers.BatchNormalization(),
-    layers.MaxPooling2D(),
-    layers.Dropout(0.25),
-
-    layers.Conv2D(128, (3,3), padding="same", activation="relu"),
-    layers.BatchNormalization(),
-    layers.MaxPooling2D(),
-    layers.Dropout(0.30),
-
-    layers.Conv2D(256, (3,3), padding="same", activation="relu"),
-    layers.BatchNormalization(),
-    layers.MaxPooling2D(),
-    layers.Dropout(0.35),
-
-    layers.GlobalAveragePooling2D(),
-    layers.Dense(128, activation="relu"),
-    layers.Dropout(0.40),
-
-    # IMPORTANT for mixed precision: keep output float32
-    layers.Dense(1, activation="sigmoid", dtype="float32")
-], name="CustomCNN")
-
-custom_model.compile(
-    optimizer=keras.optimizers.Adam(1e-3),
-    loss="binary_crossentropy",
-    metrics=[
-        "accuracy",
-        keras.metrics.Precision(name="precision"),
-        keras.metrics.Recall(name="recall"),
-        keras.metrics.AUC(name="auc"),
-    ]
-)
-
-callbacks_custom = [
-    keras.callbacks.EarlyStopping(monitor="val_auc", mode="max", patience=5, restore_best_weights=True),
-    keras.callbacks.ReduceLROnPlateau(monitor="val_auc", mode="max", factor=0.5, patience=2, min_lr=1e-6),
-    keras.callbacks.ModelCheckpoint("best_customcnn.keras", monitor="val_auc", mode="max", save_best_only=True),
-]
-
-print("\nTraining Custom CNN...")
-custom_model.fit(
-    train_ds,
-    validation_data=val_ds,
-    epochs=20,
-    callbacks=callbacks_custom,
-    class_weight=class_weight,
-    verbose=1
-)
-
-custom_model = keras.models.load_model("best_customcnn.keras")
-evaluate_model(custom_model, test_ds, title="Custom CNN")
-
-# =========================
-# 6) MODEL B — RESNET50 TRANSFER (FUNCTIONAL)
+# 5) MODEL B — RESNET50 TRANSFER
 # =========================
 base = keras.applications.ResNet50(
     include_top=False,
