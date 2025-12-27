@@ -40,7 +40,7 @@ Set	No Tumor	Tumor	Total
 Training	1587	2013	3600
 Testing	500	500	1000
 The dataset is organized as and manualy splitted into test/train :
-
+## 📁 Repository Structure
 Brain_Tumor_Data_Set/ 
 ├── train/   
 │ ├── no_tumor  
@@ -101,11 +101,8 @@ The fine-tuned ResNet50 model achieved the best performance with balanced precis
 This setup avoids cloud I/O bottlenecks and enables faster, stable training.
 
 ---
-
-## 📁 Repository Structure
-
-
-## ▶️ How to Run
+## ▶️ How to Run model 1-3 :  google colab link : https://colab.research.google.com/drive/1JUmTygnbSrw2lS1W9-6RaNevK0ewV6N3?usp=sharing
+## ▶️ How to Run model 4 ( ResNet50 ) 
 
 1️⃣ Clone the repository
 git clone https://github.com/your-username/brain_tumor_train.git
