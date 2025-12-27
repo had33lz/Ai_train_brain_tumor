@@ -101,7 +101,9 @@ The fine-tuned ResNet50 model achieved the best performance with balanced precis
 This setup avoids cloud I/O bottlenecks and enables faster, stable training.
 
 ---
-## ▶️ How to Run model 1-3 :  google colab link : https://colab.research.google.com/drive/1JUmTygnbSrw2lS1W9-6RaNevK0ewV6N3?usp=sharing
+## ▶️ How to Run model 1-3 :  
+google colab link : https://colab.research.google.com/drive/1JUmTygnbSrw2lS1W9-6RaNevK0ewV6N3?usp=sharing
+---
 ## ▶️ How to Run model 4 ( ResNet50 ) 
 
 1️⃣ Clone the repository
