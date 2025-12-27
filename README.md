@@ -6,31 +6,47 @@ The project was developed as part of the *Artificial Intelligence and Deep Learn
 ---
 
 ## 📌 Problem Overview
-Brain tumor detection from MRI scans is a critical task in medical image analysis. Manual diagnosis is time-consuming and depends heavily on expert interpretation. This project explores how deep learning models can assist in automatically identifying tumor presence from grayscale MRI images.
+Brain tumor detection from MRI scans is a challenging medical imaging task due to variations in tumor shape, size, and intensity. This project investigates whether transfer learning can outperform custom convolutional neural networks (CNNs) when training data is limited.
+
+Four models were implemented and evaluated:
+
+Model 1: Baseline Custom CNN
+
+Model 2: Custom CNN with Batch Normalization and Dropout
+
+Model 3: ResNet50 Transfer Learning (Frozen Backbone)
+
+Model 4: ResNet50 Transfer Learning with Fine-Tuning (Best Model)
 
 ---
 
 ## 📂 Dataset
-- **Type:** Brain MRI images (grayscale)
-- **Task:** Binary classification (Tumor / No Tumor)
+📊 Dataset
 
-### Dataset Distribution
-| Set | No Tumor | Tumor |
-|----|---------|-------|
-| Training | 1587 | 2013 |
-| Testing | 500 | 500 |
+Source: Kaggle – Brain Tumor Dataset
 
-The dataset is organized as:
-Brain_Tumor_Data_Set/
+Link: https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset
 
+Data Type: Grayscale MRI images
+
+Classes:
+
+tumor
+
+no_tumor
+
+Dataset Split
+Set	No Tumor	Tumor	Total
+Training	1587	2013	3600
+Testing	500	500	1000
+The dataset is organized as and manualy splitted into test/train :
+Brain_Tumor_Data_Set/ 
 ├── train/   
 │ ├── no_tumor  
 │ └── tumor/   
 └── test/   
 ├── no_tumor/  
 └── tumor/  
-
-dataset resource : https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset
 
 ---
 
@@ -65,6 +81,14 @@ Models are evaluated on the **test set** using:
 
 Class imbalance in the training data is handled using **class weighting**.
 
+🏆 Results Summary
+Model	Architecture	Accuracy
+Model 1	Basic CNN	~50%
+Model 2	CNN + BN + Dropout	~50%
+Model 3	ResNet50 (Frozen)	~48%
+Model 4	ResNet50 Fine-Tuned	~94%
+
+The fine-tuned ResNet50 model achieved the best performance with balanced precision and recall across both classes.
 ---
 
 ## 🚀 Training Environment
@@ -82,13 +106,45 @@ This setup avoids cloud I/O bottlenecks and enables faster, stable training.
 
 ## ▶️ How to Run
 
+1️⃣ Clone the repository
+git clone https://github.com/your-username/brain_tumor_train.git
+cd brain_tumor_train
+
+2️⃣ Set up the environment
+python3 -m venv tfenv
+source tfenv/bin/activate
+pip install -r requirements.txt
+
+3️⃣ Train and evaluate
+python train.py
+
 1. Activate the virtual environment:
-```bash
+bash
 source tfenv/bin/activate
 python train.py
+
+
+The dataset is organized as and manualy splitted into test/train :
+Brain_Tumor_Data_Set/ 
+├── train/   
+│ ├── no_tumor  
+│ └── tumor/   
+└── test/   
+├── no_tumor/  
+└── tumor/  
+
+
 
 
 👩‍💻 Author
 
 Developed by Hadil
 Artificial Intelligence & Deep Learning Coursework Project
+
+
+
+⚠️ Notes
+
+Dataset is not included due to size limitations.
+
+This repository is intended for academic and research purposes only.
