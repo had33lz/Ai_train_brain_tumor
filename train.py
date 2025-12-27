@@ -210,7 +210,7 @@ resnet_model = keras.models.load_model("best_resnet50.keras")
 evaluate_model(resnet_model, test_ds, title="ResNet50 Transfer")
 
 # =========================
-# 7) COMPARISON TABLE (REPORT READY)
+# 7) COMPARISON TABLE 
 # =========================
 custom_metrics = get_metrics(custom_model, test_ds)
 resnet_metrics = get_metrics(resnet_model, test_ds)
